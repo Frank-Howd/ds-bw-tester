@@ -3,6 +3,7 @@
 import logging
 import random
 
+from joblib import load
 from fastapi import APIRouter
 import pandas as pd
 from pydantic import BaseModel, Field, validator
@@ -10,6 +11,9 @@ from pydantic import BaseModel, Field, validator
 log = logging.getLogger(__name__)
 router = APIRouter()
 
+# uvicorn app.main:app --reload
+
+# classifier = load('lr_model.joblib')
 
 class Item(BaseModel):
     """Use this data model to parse the request body JSON."""
@@ -46,6 +50,7 @@ async def predict(item: Item):
 
     Replace the placeholder docstring and fake predictions with your own model.
     """
+    classifier = load('lr_model.joblib')
     X_new = item.to_df()
     log.info(X_new)
     y_pred = random.choice([True, False])

@@ -4,20 +4,28 @@ import uvicorn
 
 from app import db, ml, viz
 
-description = """
-Edit your app's title and description. See [https://fastapi.tiangolo.com/tutorial/metadata/](https://fastapi.tiangolo.com/tutorial/metadata/)
+# description = """
+# Edit your app's title and description. See [https://fastapi.tiangolo.com/tutorial/metadata/](https://fastapi.tiangolo.com/tutorial/metadata/)
 
-To use these interactive docs:
-- Click on an endpoint below
-- Click the **Try it out** button
-- Edit the Request body or any parameters
-- Click the **Execute** button
-- Scroll down to see the Server response Code & Details
+# To use these interactive docs:
+# - Click on an endpoint below
+# - Click the **Try it out** button
+# - Edit the Request body or any parameters
+# - Click the **Execute** button
+# - Scroll down to see the Server response Code & Details
+# """
+
+description = """
+The Kickstarter-Success-Predictor deploys a Logistic Regression model fit for Kickstarter campaigns.
+
+<img src="https://miro.medium.com/max/4638/1*nOdS52xlJh2n8T2Wu0UbKg.jpeg" width="40%" />
+
 """
 
 app = FastAPI(
-    title='DS API',
+    title='🏆 Kickstarter-Success-Predictor',
     description=description,
+    version=1.0,
     docs_url='/',
 )
 
