@@ -1,4 +1,4 @@
-"""Machine learning functions"""
+"""Machine learning functions."""
 
 import logging
 import random
@@ -14,6 +14,7 @@ router = APIRouter()
 # uvicorn app.main:app --reload
 
 # classifier = load('lr_model.joblib')
+
 
 class Item(BaseModel):
     """Use this data model to parse the request body JSON."""
@@ -36,7 +37,7 @@ class Item(BaseModel):
 @router.post('/predict')
 async def predict(item: Item):
     """
-    Make random baseline predictions for classification problem 🔮
+    Make random baseline predictions for classification problem 🔮.
 
     ### Request Body
     - `x1`: positive float

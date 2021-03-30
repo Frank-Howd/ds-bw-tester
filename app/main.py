@@ -5,7 +5,8 @@ import uvicorn
 from app import db, ml, viz
 
 # description = """
-# Edit your app's title and description. See [https://fastapi.tiangolo.com/tutorial/metadata/](https://fastapi.tiangolo.com/tutorial/metadata/)
+# Edit your app's title and description. See 
+# [https://fastapi.tiangolo.com/tutorial/metadata/]
 
 # To use these interactive docs:
 # - Click on an endpoint below
@@ -16,9 +17,11 @@ from app import db, ml, viz
 # """
 
 description = """
-The Kickstarter-Success-Predictor deploys a Logistic Regression model fit for Kickstarter campaigns.
+The Kickstarter-Success-Predictor deploys a Logistic 
+Regression model fit for Kickstarter campaigns.
 
-<img src="https://miro.medium.com/max/4638/1*nOdS52xlJh2n8T2Wu0UbKg.jpeg" width="40%" />
+<img src="https://miro.medium.com/max/4638/1*nOdS52xlJh2n8T2Wu0UbKg.jpeg" 
+width="40%" />
 
 """
 
