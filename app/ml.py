@@ -1,4 +1,4 @@
-"""Machine learning functions"""
+"""Machine learning functions."""
 
 import logging
 import random
@@ -13,49 +13,58 @@ router = APIRouter()
 
 # uvicorn app.main:app --reload
 
-# classifier = load('lr_model.joblib')
+classifier = load('app/lr_model.joblib')
 
 class Item(BaseModel):
     """Use this data model to parse the request body JSON."""
 
-    x1: float = Field(..., example=3.14)
-    x2: int = Field(..., example=-42)
-    x3: str = Field(..., example='banjo')
-
+    category: str = Field(..., example='Poetry')
+    goal: float = Field(..., example=1000.0)
+    backers: int = Field(..., example=10)
+    
     def to_df(self):
         """Convert pydantic object to pandas dataframe with 1 row."""
         return pd.DataFrame([dict(self)])
 
-    @validator('x1')
-    def x1_must_be_positive(cls, value):
-        """Validate that x1 is a positive number."""
-        assert value > 0, f'x1 == {value}, must be > 0'
-        return value
+    # @validator('x3')
+    # def x3_must_be_positive(cls, value):
+    #     """Validate that x3 is a positive number."""
+    #     assert value > 0, f'x3 == {value}, must be > 0'
+    #     return value
 
 
 @router.post('/predict')
 async def predict(item: Item):
     """
-    Make random baseline predictions for classification problem 🔮
+    Make random baseline predictions for classification problem 🔮.
 
     ### Request Body
-    - `x1`: positive float
-    - `x2`: integer
-    - `x3`: string
-
+    - `category`: string
+    - `goal`: float
+    - `backers`: int
+    
     ### Response
-    - `prediction`: boolean, at random
-    - `predict_proba`: float between 0.5 and 1.0, 
+    - `prediction`: success, failed
+    - `predict_proba`: float between 0.0 and 1.0, 
     representing the predicted class's probability
 
-    Replace the placeholder docstring and fake predictions with your own model.
     """
-    classifier = load('lr_model.joblib')
+    
     X_new = item.to_df()
-    log.info(X_new)
-    y_pred = random.choice([True, False])
-    y_pred_proba = random.random() / 2 + 0.5
-    return {
-        'prediction': y_pred,
-        'probability': y_pred_proba
-    }
+    # X_new = pd.DataFrame({"category": ["Poetry"],
+    #                       "goal": [1000.0],
+    #                       "backers": [10]}
+    #                       )
+    # y_pred = classifier.predict(X_new)
+    # # y_pred_proba = classifier.predict_proba(X_new)
+
+    # log.info(X_new)
+    # y_pred = random.choice([True, False])
+    # y_pred_proba = random.random() / 2 + 0.5
+    # return {
+    #     'prediction': y_pred
+    #     # 'probability': y_pred_proba
+    # }
+    choice = classifier.predict(X_new)
+    probability = classifier.predict_proba(X_new)
+    return choice[0], f"{probability[0][1]*100:.2f}% probability"
